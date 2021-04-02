@@ -1,6 +1,8 @@
 import * as orm from '@midwayjs/orm';
 import * as swagger from '@midwayjs/swagger';
-import { Configuration } from '@midwayjs/decorator';
+import { Configuration, App } from '@midwayjs/decorator';
+import { ILifeCycle } from '@midwayjs/core';
+import { IMidwaySocketIOApplication } from '@midwayjs/socketio';
 
 @Configuration({
   imports: [
@@ -12,4 +14,13 @@ import { Configuration } from '@midwayjs/decorator';
     },
   ],
 })
-export class ContainerConfiguratin {}
+export class AutoConfiguration implements ILifeCycle {
+  @App()
+  app: IMidwaySocketIOApplication;
+
+  async onReady(): Promise<void> {
+    this.app.on('connection', socket => {
+      console.log('global connection', socket.id);
+    });
+  }
+}

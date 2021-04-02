@@ -33,7 +33,7 @@ export default (appInfo: EggAppInfo): PowerPartial<EggAppConfig> => {
     username: 'root',
     password: '123456',
     database: 'vv',
-    synchronize: true,
+    synchronize: false,
     logging: false,
     timezone: '+08:00',
   };
