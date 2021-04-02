@@ -26,26 +26,5 @@ export default (appInfo: EggAppInfo): PowerPartial<EggAppConfig> => {
     accessTokenExpiresIn: 60 * 60 * 24 * 3, // 签名过期时间也可写
   };
 
-  config.orm = {
-    type: 'mysql',
-    host: 'localhost',
-    port: 3306,
-    username: 'root',
-    password: '123456',
-    database: 'vv',
-    synchronize: false,
-    logging: false,
-    timezone: '+08:00',
-  };
-
-  config.redis = {
-    client: {
-      port: 6379, // Redis port
-      host: '127.0.0.1', // Redis host
-      password: '123456',
-      db: 0,
-    },
-  };
-
   return config;
 };
