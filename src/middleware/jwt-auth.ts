@@ -27,13 +27,13 @@ export class JwtAuthMiddleware implements IWebMiddleware {
             await next();
           } catch (error) {
             throw {
-              status: 401,
+              code: 401,
               message: '请重新登录',
             };
           }
         } else {
           throw {
-            status: 401,
+            code: 401,
             message: '未登录',
           };
         }

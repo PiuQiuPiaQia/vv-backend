@@ -19,7 +19,7 @@ async function ErrHandleMiddleware(
 ): Promise<void> {
   try {
     await next();
-    if (ctx.status === 404) {
+    if (ctx.code === 404) {
       ctx.body = { code: 404, message: 'Not Found' };
     }
   } catch (err) {
@@ -28,11 +28,12 @@ async function ErrHandleMiddleware(
 
     // 处理egg-jwt的报错信息
     if (err.message === 'Authentication Failed') {
-      err.message = '未登录';
+      err.code = 401;
+      err.message = '未登录，请重新登录';
     }
 
     ctx.body = {
-      code: err.status || 500,
+      code: err.code || 500,
       message: err.message || '服务器内部错误',
       data: err.data || null,
     };

@@ -11,7 +11,7 @@ import { UserService } from '../service/user';
 import { IMidwaySocketIOContext } from '@midwayjs/socketio';
 
 @Provide()
-@WSController('/')
+@WSController('/test')
 export class APIController {
   @Inject()
   ctx: IMidwaySocketIOContext;
@@ -21,16 +21,13 @@ export class APIController {
 
   @OnWSConnection()
   init(): void {
-    console.log(`namespace / got a connection ${this.ctx.id}`);
+    console.log(`namespace /test got a connection ${this.ctx.id}`);
   }
 
-  @OnWSMessage('my')
-  @WSEmit('ok')
+  @OnWSMessage('hi')
+  @WSEmit('ha')
   async gotMyMessage(payload: unknown): Promise<any> {
-    if (typeof payload === 'string') {
-      return { payload };
-    }
-    return { message: '请发送string' };
+    return 'heart dance';
   }
 
   @OnWSDisConnection()

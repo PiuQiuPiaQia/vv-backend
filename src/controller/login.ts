@@ -40,7 +40,7 @@ export class LoginController {
     const userinfo = await this.userService.getUser(username, password);
     if (!userinfo) {
       throw {
-        status: 500,
+        code: 500,
         message: '账号密码错误或此用户不存在',
       };
     }
@@ -64,7 +64,7 @@ export class LoginController {
     );
 
     ctx.body = {
-      status: 200,
+      code: 200,
       message: '登录成功',
       data: token,
     };
@@ -74,7 +74,7 @@ export class LoginController {
   async verify(ctx: Context): Promise<void> {
     const { username, role } = ctx.userinfo;
     ctx.body = {
-      status: 200,
+      code: 200,
       message: '执行成功',
       data: {
         username,
@@ -93,7 +93,7 @@ export class LoginController {
       this.jwtAuthConfig.accessTokenExpiresIn
     );
     ctx.body = {
-      status: 200,
+      code: 200,
       message: '执行成功',
       data: {
         username,
