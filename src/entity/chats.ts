@@ -16,11 +16,16 @@ export class Chats {
   @Generated('uuid')
   chat_id: string;
 
+  @Column({
+    default: ""
+  })
+  chat_name: string;
+
   @Column()
   is_group: boolean;
 
   @Column('simple-array')
-  members: string[];
+  members: number[];
 
   @CreateDateColumn()
   create_time: string;

@@ -14,8 +14,8 @@ export class ChatMessages {
   @Column()
   chat_id: string;
 
-  @Column('simple-array')
-  message: { user: string; content: string; read: boolean }[];
+  @Column('json')
+  messages: { user: number; content: string; read: boolean }[];
 
   @CreateDateColumn()
   create_time: string;

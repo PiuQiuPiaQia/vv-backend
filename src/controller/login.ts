@@ -37,7 +37,7 @@ export class LoginController {
     @Body('username') username: string,
     @Body('password') password: string
   ): Promise<void> {
-    const userinfo = await this.userService.getUser(username, password);
+    const userinfo = await this.userService.login(username, password);
     if (!userinfo) {
       throw {
         code: 500,

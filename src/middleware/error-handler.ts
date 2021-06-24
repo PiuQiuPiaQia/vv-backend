@@ -23,8 +23,9 @@ async function ErrHandleMiddleware(
       ctx.body = { code: 404, message: 'Not Found' };
     }
   } catch (err) {
+    console.error(err);
     // 所有的异常都在 app 上触发一个 error 事件，框架会记录一条错误日志
-    ctx.app.emit('error', err, ctx);
+    // ctx.app.emit('error', err, ctx);
 
     // 处理egg-jwt的报错信息
     if (err.message === 'Authentication Failed') {
