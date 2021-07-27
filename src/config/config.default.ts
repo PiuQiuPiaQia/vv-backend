@@ -26,5 +26,11 @@ export default (appInfo: EggAppInfo): PowerPartial<EggAppConfig> => {
     accessTokenExpiresIn: 60 * 60 * 24 * 3, // 签名过期时间也可写
   };
 
+  config.security = {
+    csrf: {
+      enable: false,
+    },
+  };
+
   return config;
 };

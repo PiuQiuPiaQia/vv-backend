@@ -2,14 +2,19 @@ import { UserService } from './../service/user';
 import { Context } from 'egg';
 import { ChatService } from '../service/chat';
 import { Controller, Get, Inject, Provide } from '@midwayjs/decorator';
+import { IMidwaySocketIOContext } from '@midwayjs/socketio';
 
 @Provide()
 @Controller('/chat')
 export class ChatController {
   @Inject()
   chatService: ChatService;
+
   @Inject()
   userService: UserService;
+
+  @Inject()
+  ctx: IMidwaySocketIOContext;
 
   @Get('/getChatList')
   async getUserChatList(ctx: Context) {
@@ -17,9 +22,8 @@ export class ChatController {
     const userChat = await this.chatService.getUserChat(user_id);
     const chatIds = userChat.chat_id;
     let chatList = [];
-    for (const chat_id of chatIds) {
-      // this.chatService.saveChatMessage(chat_id);
 
+    for (const chat_id of chatIds) {
       const { chat_name, is_group, members } =
         await this.chatService.getChatList(chat_id);
       let chatMembers = [];
@@ -29,6 +33,7 @@ export class ChatController {
       }
       const { messages } = await this.chatService.getChatMessage(chat_id);
       chatList.push({
+        chat_id,
         chat_name,
         is_group,
         members: chatMembers,

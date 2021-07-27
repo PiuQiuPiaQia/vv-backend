@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { message } from '../types';
 
 @EntityModel('chat_messages')
 export class ChatMessages {
@@ -15,7 +16,7 @@ export class ChatMessages {
   chat_id: string;
 
   @Column('json')
-  messages: { user: number; content: string; read: boolean }[];
+  messages: message[];
 
   @CreateDateColumn()
   create_time: string;

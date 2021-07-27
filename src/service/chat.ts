@@ -4,6 +4,7 @@ import { InjectEntityModel } from '@midwayjs/orm';
 import { Chats } from '../entity/chats';
 import { Repository } from 'typeorm';
 import { UserChats } from '../entity/user_chats';
+import { message } from '../types';
 
 @Provide()
 export class ChatService {
@@ -38,23 +39,15 @@ export class ChatService {
     );
   }
 
-  // todo  保存一条假数据进去
-  async saveChatMessage(chat_id: string): Promise<ChatMessages> {
-    return await this.chatMessagesModel.save({
-      chat_id,
-      messages: [
-        {
-          user: 1,
-          content: '11111',
-          read: false,
-        },
-        {
-          user: 2,
-          content: '222222',
-          read: false,
-        },
-      ],
-    });
+  async saveChatMessage(chat_id: string, message: message) {
+    const { messages } = await this.chatMessagesModel.findOne();
+    messages.push(message);
+    return await this.chatMessagesModel.update(
+      {
+        chat_id: chat_id,
+      },
+      { messages }
+    );
   }
 
   async getChatMessage(chat_id: string): Promise<ChatMessages> {
