@@ -2,7 +2,6 @@ import { UserService } from './../service/user';
 import { Context } from 'egg';
 import { ChatService } from '../service/chat';
 import { Controller, Get, Inject, Provide } from '@midwayjs/decorator';
-import { IMidwaySocketIOContext } from '@midwayjs/socketio';
 
 @Provide()
 @Controller('/chat')
@@ -12,9 +11,6 @@ export class ChatController {
 
   @Inject()
   userService: UserService;
-
-  @Inject()
-  ctx: IMidwaySocketIOContext;
 
   @Get('/getChatList')
   async getUserChatList(ctx: Context) {
