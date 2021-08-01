@@ -31,7 +31,6 @@ export class APIController {
 
   @OnWSConnection()
   async init(): Promise<void> {
-    console.log(`namespace / got a connection ${this.ctx.id}`);
     // auth middleware
     this.ctx.use(async (event, next) => {
       const [, token] = this.ctx.request.headers.authorization.split(' ');
@@ -65,12 +64,23 @@ export class APIController {
         });
       }
     });
+    console.log(`namespace / got a connection ${this.ctx.id}`);
   }
 
   @OnWSMessage('hi')
   @WSEmit('ha')
   async gotMyMessage(payload: unknown): Promise<any> {
     return 'heart dance';
+  }
+
+  @OnWSMessage('addRooms')
+  async addRooms() {
+    const { id } = await this.ctx.data.userinfo;
+    const userChat = await this.chatService.getUserChat(id);
+    const chatIds = userChat.chat_id;
+    chatIds.forEach(chat_id => {
+      this.ctx.join(chat_id);
+    });
   }
 
   @OnWSMessage('sendMessage')
@@ -82,6 +92,7 @@ export class APIController {
     message: message;
   }): Promise<any> {
     await this.chatService.saveChatMessage(chat_id, message);
+    this.ctx.to(chat_id).emit('receiverMessage', { chat_id, message });
     // this.ctx;
     return {
       code: 200,
