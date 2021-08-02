@@ -26,6 +26,8 @@ export class JwtAuthMiddleware implements IWebMiddleware {
 
             await next();
           } catch (error) {
+            console.error(error);
+
             throw {
               code: 401,
               message: '请重新登录',
