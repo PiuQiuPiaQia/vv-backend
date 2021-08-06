@@ -24,7 +24,6 @@
     "@midwayjs/mock": "^2.12.1",
     "@types/jest": "^26.0.10",
     "@types/node": "14",
-    "@types/socket.io-client": "^3.0.0",
     "cross-env": "^6.0.0",
     "jest": "^26.4.0",
     "mwts": "^1.0.5",
