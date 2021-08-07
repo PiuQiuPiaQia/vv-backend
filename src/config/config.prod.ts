@@ -17,7 +17,7 @@ export const orm: ConnectionOptions = {
   username: 'root',
   password: '123456',
   database: 'vv',
-  synchronize: false,
+  synchronize: true,
   logging: false,
   timezone: '+08:00',
 };
