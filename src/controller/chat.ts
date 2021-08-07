@@ -27,13 +27,14 @@ export class ChatController {
         const member = await this.userService.getUserById(member_id);
         chatMembers.push(member.username);
       }
-      const { messages } = await this.chatService.getChatMessage(chat_id);
+      const chat_message = await this.chatService.getChatMessage(chat_id);
+      const messages = chat_message?.messages ?? [];
       chatList.push({
         chat_id,
         chat_name,
         is_group,
         members: chatMembers,
-        messages: messages || [],
+        messages: messages,
       });
     }
 
