@@ -77,7 +77,7 @@ export class APIController {
   async addRooms() {
     const { id } = await this.ctx.data.userinfo;
     const userChat = await this.chatService.getUserChat(id);
-    const chatIds = userChat.chat_id;
+    const chatIds = userChat?.chat_id ?? [];
     chatIds.forEach(chat_id => {
       this.ctx.join(chat_id);
     });

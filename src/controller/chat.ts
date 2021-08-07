@@ -16,7 +16,7 @@ export class ChatController {
   async getUserChatList(ctx: Context) {
     const { id: user_id } = ctx.userinfo;
     const userChat = await this.chatService.getUserChat(user_id);
-    const chatIds = userChat.chat_id;
+    const chatIds = userChat?.chat_id ?? [];
     let chatList = [];
 
     for (const chat_id of chatIds) {
