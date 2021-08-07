@@ -40,14 +40,19 @@ export class ChatService {
   }
 
   async saveChatMessage(chat_id: string, message: message) {
-    const { messages } = await this.chatMessagesModel.findOne();
+    const chat_message = await this.chatMessagesModel.findOne({
+      chat_id: chat_id,
+    });
+    const messages = chat_message?.messages ?? [],
+      id = chat_message?.id;
+
     messages.push(message);
-    return await this.chatMessagesModel.update(
-      {
-        chat_id: chat_id,
-      },
-      { messages }
-    );
+
+    return await this.chatMessagesModel.save({
+      id: id,
+      chat_id: chat_id,
+      messages,
+    });
   }
 
   async getChatMessage(chat_id: string): Promise<ChatMessages> {
