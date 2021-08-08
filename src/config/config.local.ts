@@ -20,4 +20,5 @@ export const orm: ConnectionOptions = {
   synchronize: true,
   logging: false,
   timezone: '+08:00',
+  charset: 'utf8mb4_bin',
 };
