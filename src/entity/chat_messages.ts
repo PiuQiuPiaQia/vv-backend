@@ -15,7 +15,9 @@ export class ChatMessages {
   @Column()
   chat_id: string;
 
-  @Column('json')
+  @Column('json', {
+    default: null,
+  })
   messages: message[];
 
   @CreateDateColumn()
