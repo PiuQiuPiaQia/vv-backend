@@ -72,11 +72,13 @@ export class LoginController {
 
   @Post('/verify')
   async verify(ctx: Context): Promise<void> {
-    const { username, role } = ctx.userinfo;
+    const { username, role, id } = ctx.userinfo;
+
     ctx.body = {
       code: 200,
       message: '执行成功',
       data: {
+        id,
         username,
         role,
       },

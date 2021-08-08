@@ -22,10 +22,10 @@ export class ChatController {
     for (const chat_id of chatIds) {
       const { chat_name, is_group, members } =
         await this.chatService.getChatList(chat_id);
-      let chatMembers = [];
+      let chatMembers: Record<string, string> = {};
       for (const member_id of members) {
         const member = await this.userService.getUserById(member_id);
-        chatMembers.push(member.username);
+        chatMembers[member_id] = member.username;
       }
       const chat_message = await this.chatService.getChatMessage(chat_id);
       const messages = chat_message?.messages ?? [];
