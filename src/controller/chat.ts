@@ -28,7 +28,7 @@ export class ChatController {
         chatMembers[member_id] = member.username;
       }
       const chat_message = await this.chatService.getChatMessage(chat_id);
-      const messages = chat_message?.messages ?? [];
+      const messages = chat_message.messages ?? [];
       chatList.push({
         chat_id,
         chat_name,
@@ -42,6 +42,16 @@ export class ChatController {
       code: 200,
       message: '执行成功',
       data: chatList,
+    };
+  }
+
+  @Get('/getUserList')
+  async getUserList(ctx: Context) {
+    const userList = await this.userService.getUserList();
+    ctx.body = {
+      code: 200,
+      message: '执行成功',
+      data: userList ?? [],
     };
   }
 }

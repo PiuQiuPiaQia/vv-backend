@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   Generated,
+  DeleteDateColumn,
 } from 'typeorm';
 
 @EntityModel('chats')
@@ -17,7 +18,7 @@ export class Chats {
   chat_id: string;
 
   @Column({
-    default: ""
+    default: '',
   })
   chat_name: string;
 
@@ -32,4 +33,8 @@ export class Chats {
 
   @UpdateDateColumn()
   update_time: string;
+
+  // Add this column to your entity!
+  @DeleteDateColumn()
+  deletedAt?: Date;
 }

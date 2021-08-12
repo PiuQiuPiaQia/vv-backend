@@ -100,6 +100,33 @@ export class APIController {
     };
   }
 
+  // 发起新的聊天
+  @OnWSMessage('createChat')
+  async createChat({ chat_user_id }) {
+    const { id } = await this.ctx.data.userinfo;
+    const chat = await this.chatService.createChat({
+      user_id: id,
+      chat_user_id,
+    });
+    let chatMembers: Record<string, string> = {};
+    for (const member_id of chat.members) {
+      const member = await this.userService.getUserById(member_id);
+      chatMembers[member_id] = member.username;
+    }
+    const chat_message = await this.chatService.getChatMessage(chat.chat_id);
+    let messages = chat_message.messages ?? [];
+    return {
+      code: 200,
+      data: {
+        chat_id: chat.chat_id,
+        chat_name: chat.chat_name,
+        is_group: chat.is_group,
+        members: chatMembers,
+        messages: messages,
+      },
+    };
+  }
+
   @OnWSDisConnection()
   disconnect(reason: string): void {
     console.log(this.ctx.id + ' disconnect ' + reason);

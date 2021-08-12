@@ -25,4 +25,13 @@ export class UserService {
       }
     );
   }
+
+  async getUserList(): Promise<Users[]> {
+    return await this.userModel.find({
+      select: ['username'],
+      order: {
+        username: 'ASC',
+      },
+    });
+  }
 }
