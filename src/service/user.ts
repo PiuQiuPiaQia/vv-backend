@@ -26,7 +26,7 @@ export class UserService {
     );
   }
 
-  async getUserList(): Promise<Users[]> {
+  async getUserList(){
     return await this.userModel.find({
       select: ['username'],
       order: {

@@ -124,6 +124,7 @@ export class APIController {
         members: chatMembers,
         messages: messages,
       },
+      message: 'success',
     };
   }
 

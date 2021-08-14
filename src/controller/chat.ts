@@ -48,10 +48,11 @@ export class ChatController {
   @Get('/getUserList')
   async getUserList(ctx: Context) {
     const userList = await this.userService.getUserList();
+    const { username } = ctx.userinfo;
     ctx.body = {
       code: 200,
       message: '执行成功',
-      data: userList ?? [],
+      data: userList.filter(user => user.username !== username),
     };
   }
 }
